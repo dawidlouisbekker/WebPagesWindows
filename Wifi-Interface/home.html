@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Student Marks Management</h1>
+        <div class="text-center mb-4">
+            <a href="students" class="btn btn-primary btn-lg d-block mb-3">Enter Student Names and Marks</a>
+            <a href="finalmarks.html" class="btn btn-success btn-lg d-block mb-3">Display Final Marks</a>
+            <a href="distinctive.html" class="btn btn-warning btn-lg d-block mb-3">Display Distinctive Students (80% and above)</a>
+            <a href="atrisk" class="btn btn-danger btn-lg d-block mb-3">Display At-Risk Students (below 50%)</a>
+        </div>
+    
+
+
+        <div id="output" class="alert alert-info" style="display:none;"></div>
+</div>
+    <script>
+
+
+        // Function to display final marks
+        function displayFinalMarks() {
+            if (students.length === 0) {
+                alert("No student data available.");
+                return;
+            }
+            let output = "Final Marks:\n";
+            students.forEach(student => {
+                output += `${student.name}: ${student.marks}\n`;
+            });
+            showOutput(output);
+        }
+
+
+
+        // Function to display at-risk students
+        function displayRiskStudents() {
+            if (students.length === 0) {
+                alert("No student data available.");
+                return;
+            }
+            let output = "At-Risk Students (below 50%):\n";
+            const riskStudents = students.filter(student => student.marks < 50);
+            if (riskStudents.length > 0) {
+                riskStudents.forEach(student => {
+                    output += `${student.name}: ${student.marks}\n`;
+                });
+            } else {
+                output = "No at-risk students found.";
+            }
+            showOutput(output);
+        }
+
+        // Function to show output in the alert box
+        function showOutput(output) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerText = output;
+            outputDiv.style.display = 'block';
+        }
+
+        // Event listeners for buttons
+     //   document.getElementById('enterMarksBtn').addEventListener('click', enterStudentMarks);
+     //   document.getElementById('finalMarksBtn').addEventListener('click', displayFinalMarks);
+     //   document.getElementById('distinctiveStudentsBtn').addEventListener('click', displayDistinctiveStudents);
+     //   document.getElementById('riskStudentsBtn').addEventListener('click', displayRiskStudents);
+
+    </script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

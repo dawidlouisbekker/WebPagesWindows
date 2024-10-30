@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Input</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">Student Marks Input</h1>
+        <form id="studentForm">
+            <div id="studentInputs"></div>
+            <button type="submit" class="btn btn-success" id="submitBtn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            for (let i = 1; i <= 2; i++) {
+                addStudentInput(i); // Change to 10 students
+            }
+        });
+
+        function addStudentInput(index) {
+            const studentInputsDiv = document.getElementById('studentInputs');
+            const studentInputHTML = `
+                        <div class="form-group">
+                            <label for="student${index}">Student ${index} Name:</label>
+                            <input type="text" class="form-control" id="student${index}" required>
+                            <label for="marks${index}1">Mark 1:</label>
+                            <input type="number" class="form-control" id="marks${index}1" required>
+                            <label for="marks${index}2">Mark 2:</label>
+                            <input type="number" class="form-control" id="marks${index}2" required>
+                        </div>
+                    `;
+            studentInputsDiv.insertAdjacentHTML('beforeend', studentInputHTML);
+        }
+
+        document.getElementById('studentForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            console.log("Form submitted");
+            const studentsData = [];
+            for (let i = 1; i <= 2; i++) { // Change to 10 students
+                const name = document.getElementById(`student${i}`).value;
+                const mark1 = document.getElementById(`marks${i}1`).value;
+                const mark2 = document.getElementById(`marks${i}2`).value;
+                studentsData.push({ name, marks: [mark1, mark2] });
+            }
+            try {
+                const response = await fetch('/api/students', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(studentsData),
+                });
+
+                if (response.ok) {
+                    alert("Success" + response.statusText);
+                   
+                } else {
+                    alert("Error sending data: " + response.statusText);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
