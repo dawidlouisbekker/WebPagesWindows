@@ -1,0 +1,1 @@
+Clone repository with Visual Studio. Run and type ipconfig in cmd. Then copy ip address and put it in web broswer search bar with :8080/home. Only Enter Student Marks works. Rest of the pages don't process json data.
